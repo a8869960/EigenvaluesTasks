@@ -26,7 +26,6 @@ int find_eigenvalues(ARGS *arg)
     double time = get_full_time();
     if(!is_three_diagonal(arg))
     {
-//         cout << "not 3" << endl;
         if(three_diagonal(arg) == -1)
         {
             cout << "Pr with three_diagonal" << endl;
@@ -40,16 +39,10 @@ int find_eigenvalues(ARGS *arg)
             }
         arg->three_diagonal_time = get_full_time() - time;
     }
-//     cout << "UAUt:" << endl;
-//     matrixOutput(a, n, n, 10);
-//     cout << endl;
-    
 
     //Вычисляем b0
     double b0 = arg->norm;
     double ai = -b0, bi = b0, c = 0;
-//    cout << b0 << endl;
-//    cout << sign_changes(arg, -1.015e-22) << endl;
 
     //Вычисляем собственные значения
     time = get_full_time();
@@ -69,15 +62,12 @@ int find_eigenvalues(ARGS *arg)
             else
                 bi = c;
 
-//            cout << "[" << ai << " " << bi << "]" << endl;
-//            cout << n_minus << endl;
             arg->its++;
         }
 
         double lambda = (ai + bi) / 2;
         int s1 = sign_changes(arg, bi), s2 = sign_changes(arg, ai);
         int multiplicity = s1 - s2;
-//        cout << multiplicity << endl;
 
         if(multiplicity == 0)
         {
@@ -86,10 +76,6 @@ int find_eigenvalues(ARGS *arg)
             multiplicity = s1 - s2;
             if (multiplicity == 0) multiplicity++;
         }
-
-//        cout << "[" << ai << " " << bi << "]" << endl;
-//        cout << "lambda: " << lambda << " | " << multiplicity << " = " << s1 << " - " << s2 << endl;
-//        if(is_end) cout << "end" << endl;
         
         for(int i = k; i < k + multiplicity; i++)
         {
@@ -116,20 +102,15 @@ int three_diagonal(ARGS *arg)
     {
         //Считаем x(k)
         get_column(a, xk, n, k);
-        // matrixOutput(xk, 1, n, n);
+
         norm = vector_norm(xk, n);
         xk[k + 1] -= norm;
         norm = vector_norm(xk, n);
         if(vector_division(xk, n, norm) == -1)
             continue;
-
-        //Считаем UAUt СДЕЛАТЬ ЧТОБЫ СЧИТАЛСЯ ТОЛЬКО ВЕРХНИЙ ТРЕУГОЛЬНИК???
+        
         UAUt(arg);
     }
-
-//     cout << "UAUt:" << endl;
-//     matrixOutput(a, n, n, 10);
-//     cout << endl;
 
     return 0;
 }
@@ -170,8 +151,6 @@ int LU_decomposition(ARGS *arg, double alpha) //lambda = xk, l = y, u = z ?????
 
         l[i + 1] = a[(i + 1) * n + i + 1] - alpha - lambda[i] * u[i];
     }
-    // cout << "l: " << alpha << endl;
-    // matrixOutput(l, 1, n, n);
 
     return 0;
 }
@@ -197,7 +176,7 @@ bool is_three_diagonal(ARGS *arg)
     return true;
 }
 
-int sign_changes(ARGS *arg, double b, [[maybe_unused]]bool f)
+int sign_changes(ARGS *arg, double b)
 {
     int n = arg->n;
     double *a = arg->a;

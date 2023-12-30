@@ -83,7 +83,6 @@ double r2(double *A, int n, double *x);
 int find_eigenvalues(ARGS *arg);
 int three_diagonal(ARGS *arg);
 void UAUt(ARGS *arg);
-int LU_decomposition(ARGS *arg, double alpha = 0); //lambda = xk, l = y, u = z
-int sign_changes(ARGS *arg, double alpha, bool f = false);
+int sign_changes(ARGS *arg, double alpha);
 
 #endif //EIGENVALUESTASKS_FUNCTIONS_H
