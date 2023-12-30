@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include <fstream>
+#define EPS 1e-16
 
 #include "functions.h"
 
@@ -134,4 +135,14 @@ void get_column(double *A, double *a1, int n, int k)
 
     for(int i = k + 1; i < n; i++)
         a1[i] = A[i * n + k];
+}
+
+bool is_symmetric(double *A, int n)
+{
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            if(fabs(A[i * n + j] - A[j * n + i]) > EPS)
+                return false;
+
+    return true;
 }

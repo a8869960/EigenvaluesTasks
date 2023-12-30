@@ -135,7 +135,7 @@ double vector_norm(double *x, int n)
 
 int vector_division(double *a1, int n, double alpha)
 {
-    if(abs(alpha) < 1e-16) return -1;
+    if(abs(alpha) < 1e-100) return -1;
 
     for(int i = 0; i < n; i++)
         a1[i] = a1[i] / alpha;

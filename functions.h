@@ -34,6 +34,8 @@ public:
     double *y = nullptr;
     double *z = nullptr;
 
+    double norm = 0;
+
     int its = 0;
     double three_diagonal_time = 0;
     double eigenvalues_time = 0;
@@ -68,6 +70,7 @@ double matrix_max_norm(double *A, int n);
 int fileMatrixInput(double* A, char* filename, int n);
 void f(double *A, int s, int n);
 void get_column(double *A, double *a, int n, int k);
+bool is_symmetric(double *A, int n);
 
 //matrix_output
 void matrixOutput(double *matrix, int l, int n, int r = 3);
@@ -81,6 +84,6 @@ int find_eigenvalues(ARGS *arg);
 int three_diagonal(ARGS *arg);
 void UAUt(ARGS *arg);
 int LU_decomposition(ARGS *arg, double alpha = 0); //lambda = xk, l = y, u = z
-int sign_changes(ARGS *arg, double alpha);
+int sign_changes(ARGS *arg, double alpha, bool f = false);
 
 #endif //EIGENVALUESTASKS_FUNCTIONS_H

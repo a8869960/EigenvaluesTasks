@@ -62,11 +62,21 @@ int main(int ac, char* av[])
             {
                 delete[] arg;
                 delete[] A;
+                delete[] x;
                 return -1;
             }
         }
 
-        cout << "Matrix A:" << endl;
+        if(!is_symmetric(A, n))
+        {
+            cout << "Matrix is not symmetric." << endl;
+            delete[] arg;
+            delete[] A;
+            delete[] x;
+            return -1;
+        }
+
+        if(m > 0) cout << "Matrix A:" << endl;
         matrixOutput(A, n, n, m);
 
         //Поиск собственных значений
@@ -96,8 +106,8 @@ int main(int ac, char* av[])
         double res1 = 0, res2 = 0;
         if(flag)
         {
-            cout << "Result:" << endl;
-            matrixOutput(x, 1, n, m);
+            if(m > 0) cout << "Result:" << endl;
+            matrixOutput(x, 1, n, m);// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             res1 = r1(arg->A, n, arg->x);
             res2 = r2(arg->A, n, arg->x);
         }
@@ -108,10 +118,12 @@ int main(int ac, char* av[])
         printf ("%s : Residual1 = %e Residual2 = %e Iterations = %d \
    Iterations1 = %d Elapsed1 = %.2f Elapsed2 = %.2f\n",
                 av[0], res1, res2, its, its / n, t1, t2);
+        
+//         cout << x[n] << endl;
 
         delete[] arg;
-        delete[] x;
         delete[] A;
+        delete[] x;
 
         return 0;
     } catch (const bad_alloc& e)
